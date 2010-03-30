@@ -1,0 +1,9 @@
+{
+	"id": "com.semicolonapps.1password",
+	"version": "0.1.0",
+	"vendor": "Semicolon Apps",
+	"type": "web",
+	"main": "index.html",
+	"title": "1password",
+	"icon": "icon.png"
+}

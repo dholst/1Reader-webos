@@ -1,5 +1,7 @@
-PickAssistant = Class.create({
-  setup: function() {
+PickAssistant = Class.create(BaseAssistant, {
+  ready: function() {
+    this.spinnerOn();
+
     var params = {
       kind: "file",
       extensions: ["html"],
@@ -11,41 +13,12 @@ PickAssistant = Class.create({
 
   fileSelected: function(response) {
     console.log("picked " + response.fullPath);
-  	this.keychainFolder = response.fullPath.substring(0, response.fullPath.indexOf("1Password.html"));
-  	console.log("base folder: " + this.keychainFolder)
-    this.injectScript(this.keychainFolder + "style/scripts/1PasswordAnywhere.js", this.onePasswordLoaded.bind(this));
-  },
+  	var keychainFolder = response.fullPath.substring(0, response.fullPath.indexOf("1Password.html"));
+  	var onePassword = new OnePassword();
 
-  injectScript: function(path, onLoad) {
-    var script = document.createElement("script");
-    script.src = path;
-		script.type = "text/javascript";
-		script.onload = onLoad;
-		document.getElementsByTagName("head")[0].appendChild(script);
-  },
-
-  onePasswordLoaded: function() {
-    console.log("1PasswordAnywhere.js loaded, creating keychain...")
-    this.keychain = new Keychain();
-    this.load("contents.js", this.contentsLoaded.bind(this));
-  },
-
-  contentsLoaded: function(contents) {
-  	this.keychain.setContents(eval(contents));
-
-  	this.keychain.contents[TYPE_WEBFORMS].each(function(password) {
-    	console.log(password.title);
-  	});
-  },
-
-  load: function(file, onSuccess) {
-    file = this.keychainFolder + "data/default/" + file;
-    console.log("loading " + file);
-
-    new Ajax.Request(file, {
-    	method: "get",
-    	onSuccess: function(response){onSuccess(response.responseText);},
-    	onFailure: function(){console.log('A problem occurred when loading the "' + file + '" file.');}
-    });
+  	onePassword.load(keychainFolder, function() {
+    	this.spinnerOff();
+  	  this.controller.stageController.swapScene("types", onePassword);
+  	}.bind(this));
   }
 })

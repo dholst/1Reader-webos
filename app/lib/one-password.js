@@ -2,12 +2,6 @@
 var keychain;
 
 AgileKeychain = Class.create({
-  load: function(baseFolder, loaded) {
-    this.baseFolder = baseFolder;
-    this.loadedCallback = loaded;
-    this._injectScript(this.baseFolder + "style/scripts/1PasswordAnywhere.js", this._loaded.bind(this));
-  },
-
   unlock: function(password) {
     return keychain.verifyPassword(password);
   },
@@ -26,6 +20,12 @@ AgileKeychain = Class.create({
 
   loadItem: function(item, callback) {
     this._loadFile(item.uuid + ".1password", this._itemLoaded.bind(this, callback))
+  },
+
+  _load: function(baseFolder, loaded) {
+    this.baseFolder = baseFolder;
+    this.loadedCallback = loaded;
+    this._injectScript(this.baseFolder + "style/scripts/1PasswordAnywhere.js", this._loaded.bind(this));
   },
 
   _itemLoaded: function(callback, json) {
@@ -90,3 +90,9 @@ KeychainItemWrapper = Class.create({
     return this.wrapped.decrypted_secure_contents.fields;
   }
 })
+
+AgileKeychain.create = function(baseFolder, callback) {
+  var keychain = new AgileKeychain();
+  keychain._load(baseFolder, callback);
+  return keychain;
+}

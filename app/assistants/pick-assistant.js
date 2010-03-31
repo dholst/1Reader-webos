@@ -5,7 +5,7 @@ PickAssistant = Class.create(BaseAssistant, {
     var params = {
       kind: "file",
       extensions: ["html"],
-      onSelect: this.fileSelected.bind(this)
+      onSelect: this.fileSelected = this.fileSelected.bind(this)
     };
 
     Mojo.FilePicker.pickFile(params, this.controller.stageController);
@@ -14,11 +14,9 @@ PickAssistant = Class.create(BaseAssistant, {
   fileSelected: function(response) {
     console.log("picked " + response.fullPath);
   	var keychainFolder = response.fullPath.substring(0, response.fullPath.indexOf("1Password.html"));
-  	var onePassword = new OnePassword();
-
-  	onePassword.load(keychainFolder, function() {
+  	var keychain = AgileKeychain.create(keychainFolder, function() {
     	this.spinnerOff();
-  	  this.controller.stageController.swapScene("types", onePassword);
+  	  this.controller.stageController.swapScene("groups", keychain);
   	}.bind(this));
   }
 })

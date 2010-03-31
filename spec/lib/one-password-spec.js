@@ -66,8 +66,7 @@ describe("1Password", function() {
 
   function loadKeychain() {
     runs(function() {
-      keychain = new AgileKeychain();
-      keychain.load("http://localhost:8888/spec/support/1Password.agilekeychain/", successCallback)
+      keychain = AgileKeychain.create("http://localhost:8888/spec/support/1Password.agilekeychain/", successCallback);
     });
 
     waits(loadTime);

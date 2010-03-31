@@ -9,13 +9,17 @@ Mojo = {
 
   Event : {
     send: function(){},
-    listen: {},
-    listTap: {},
-    tap: {}
+    listen: function(){},
+    listTap: "listTap",
+    tap: "tap"
   },
 
   Log: {
     info: function(){},
     error: function(){}
+  },
+
+  FilePicker: {
+    pickFile: function(){}
   }
 };

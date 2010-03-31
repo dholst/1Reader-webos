@@ -39,6 +39,21 @@ end
 namespace :jasmine do
   require 'jasmine'
 
+  module Jasmine
+    class RunAdapter
+      alias :old_call :call
+
+      def call(env)
+        if env["PATH_INFO"] != "/"
+          filepath = Dir.pwd + env["PATH_INFO"]
+          return [200, {}, File.new(filepath)] if(File.exists?(filepath))
+        end
+        
+        old_call(env)
+      end
+    end
+  end
+
   desc "Run continuous integration tests"
   require "spec"
   require 'spec/rake/spectask'

@@ -10,6 +10,6 @@ ItemsAssistant = Class.create(BaseAssistant, {
   },
 
   itemTapped: function(event) {
-    this.controller.stageController.pushScene("item", this.keychain, event.item);
+    this.controller.stageController.pushScene(ItemSceneFactory.get(event.item), this.keychain, event.item);
   }
 });

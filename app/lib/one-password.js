@@ -30,7 +30,8 @@ AgileKeychain = Class.create({
 
   _itemLoaded: function(callback, json) {
     try {
-      var item = new KeychainItemWrapper(eval("(" + json + ")"));
+      var item = new KeychainItem(eval("(" + json + ")"));
+      item.decrypt();
       callback(item);
     }
     catch(e) {
@@ -75,20 +76,14 @@ AgileKeychain = Class.create({
   _group: function(key, name) {
     var group = keychain.contents[key];
     group.name = name;
+
+    group.each(function(item) {
+      item.isLogin = (item.type == TYPE_WEBFORMS)
+    });
+
     return group
   }
 });
-
-KeychainItemWrapper = Class.create({
-  initialize: function(json) {
-    this.wrapped = new KeychainItem(json);
-    this.wrapped.decrypt();
-  },
-
-  fields: function() {
-    return this.wrapped.decrypted_secure_contents.fields;
-  }
-})
 
 AgileKeychain.create = function(baseFolder, callback) {
   var keychain = new AgileKeychain();

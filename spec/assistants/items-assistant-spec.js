@@ -24,10 +24,12 @@ describe("ItemsAssistant", function() {
   });
 
   it("should push next scene on item tap", function() {
+    spyOn(ItemSceneFactory, "get").andReturn("foo");
     spyOn(assistant.controller.stageController, "pushScene");
 
     assistant.itemTapped({item: "the item"});
 
-    expect(assistant.controller.stageController.pushScene).wasCalledWith("item", keychain, "the item");
+    expect(ItemSceneFactory.get).wasCalledWith("the item");
+    expect(assistant.controller.stageController.pushScene).wasCalledWith("foo", keychain, "the item");
   })
 });

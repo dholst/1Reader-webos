@@ -37,31 +37,13 @@ describe("1Password", function() {
 
       runs(function() {
         expect(this.items.first().title).toEqual("login 1");
+        expect(this.items.first().isLogin).toEqual(true);
         loadItem(this.items.first());
       });
 
       runs(function() {
-        var fields = this.item.fields();
-        expect(fields.length).toEqual(2);
-        expect(fields[0].name).toEqual("username");
-        expect(fields[1].value).toEqual("password1");
-      })
-    });
-
-    it("should decrypt identities", function() {
-      loadItems(1, "Identities");
-
-      runs(function() {
-        expect(this.items.first().title).toEqual("identity 1");
-        loadItem(this.items.first());
-      });
-
-      runs(function() {
-        console.log("WTF")
-        console.log(this.item)
-        console.log("FTW")
-        var fields = this.item.fields();
-        expect(fields.length).toEqual(2);
+        expect(this.item.loginUsername()).toEqual("login1");
+        expect(this.item.loginPassword()).toEqual("password1");
       })
     });
 

@@ -11,6 +11,5 @@
   {source: "app/assistants/pick-assistant.js"},
   {source: "app/lib/ajax.js"},
   {source: "app/lib/one-password.js"},
-  {source: "app/presenters/presenter.js"}
-  
+
 ]

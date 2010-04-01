@@ -11,7 +11,7 @@ ItemAssistant = Class.create({
   },
 
   itemLoaded: function(item) {
-    this.fields.items.push.apply(this.fields.items, item.fields());
+    Presenter.present(item, this.fields.items);
     this.controller.modelChanged(this.fields);
   }
 });

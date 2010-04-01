@@ -1,4 +1,5 @@
 KeychainStub = Class.create({
   groups: function() {},
-  loadItem: function() {}
+  loadItem: function() {},
+  unlock: function() {}
 });

@@ -16,7 +16,7 @@ PickAssistant = Class.create(BaseAssistant, {
   	var keychainFolder = response.fullPath.substring(0, response.fullPath.indexOf("1Password.html"));
   	var keychain = AgileKeychain.create(keychainFolder, function() {
     	this.spinnerOff();
-  	  this.controller.stageController.swapScene("groups", keychain);
+  	  this.controller.stageController.swapScene("master-password", keychain);
   	}.bind(this));
   }
 })

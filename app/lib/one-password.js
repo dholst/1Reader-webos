@@ -86,7 +86,6 @@ KeychainItemWrapper = Class.create({
   },
 
   fields: function() {
-    console.log(this.wrapped.decrypted_secure_contents);
     return this.wrapped.decrypted_secure_contents.fields;
   }
 })

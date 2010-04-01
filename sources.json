@@ -4,7 +4,10 @@
   {source: "app/assistants/groups-assistant.js"},
   {source: "app/assistants/item-assistant.js"},
   {source: "app/assistants/items-assistant.js"},
+  {source: "app/assistants/master-password-assistant.js"},
   {source: "app/assistants/pick-assistant.js"},
-  {source: "app/lib/ajax.js"}
-  {source: "app/lib/one-password.js"}
+  {source: "app/lib/ajax.js"},
+  {source: "app/lib/one-password.js"},
+  {source: "app/presenters/presenter.js"}
+  
 ]

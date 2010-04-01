@@ -27,6 +27,6 @@ describe("PickAssistant", function() {
     expect(AgileKeychain.create).wasCalledWith("/media/internal/files/foo.agilekeychain/", jasmine.any(Function));
     AgileKeychain.create.mostRecentCall.args[1]();
     expect(assistant.spinnerOff).wasCalled();
-    expect(assistant.controller.stageController.swapScene).wasCalledWith("groups", "the keychain");
+    expect(assistant.controller.stageController.swapScene).wasCalledWith("master-password", "the keychain");
   })
 });

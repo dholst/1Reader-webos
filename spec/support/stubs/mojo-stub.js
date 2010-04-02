@@ -21,5 +21,9 @@ Mojo = {
 
   FilePicker: {
     pickFile: function(){}
+  },
+
+  Widget: {
+    spinnerLarge: "spinner-large"
   }
 };

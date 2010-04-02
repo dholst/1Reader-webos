@@ -4,16 +4,20 @@ describe("ItemsAssistant", function() {
 
   beforeEach(function() {
     keychain = new KeychainStub();
-    assistant = new ItemsAssistant(keychain, [{title: "Item3"}, {title: "item2"}, {title: "item1"}]);
+    var items = [{title: "Item3"}, {title: "item2"}, {title: "item1"}];
+    items.name = "group name"
+    assistant = new ItemsAssistant(keychain, items);
     assistant.controller = new SceneControllerStub();
   });
 
   it("should setup widgets", function() {
     spyOn(assistant.controller, "setupWidget");
     spyOn(assistant.controller, "listen");
+    spyOn(assistant.controller, "update");
 
     assistant.setup();
 
+    expect(assistant.controller.update).wasCalledWith("group-name", "group name");
     expect(assistant.controller.setupWidget).wasCalledWith(
       "items",
       {itemTemplate : 'items/item'},

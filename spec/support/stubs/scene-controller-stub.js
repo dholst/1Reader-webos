@@ -12,5 +12,6 @@ SceneControllerStub.prototype = {
   stopListening: function(){},
   serviceRequest: function(){},
   update: function(){},
-  instantiateChildWidgets: function(){}
+  instantiateChildWidgets: function(){},
+  popupSubmenu: function(){}
 };

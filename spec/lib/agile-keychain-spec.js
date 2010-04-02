@@ -1,4 +1,4 @@
-describe("1Password", function() {
+describe("AgileKeychain", function() {
   var loadTime = 100;
   var keychain;
   var successCallback;

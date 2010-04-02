@@ -1,9 +1,9 @@
 {
-	"id": "com.semicolonapps.1password",
-	"version": "0.1.0",
+	"id": "com.semicolonapps.1reader",
+	"version": "0.0.1",
 	"vendor": "Semicolon Apps",
 	"type": "web",
 	"main": "index.html",
-	"title": "1password",
+	"title": "1Reader",
 	"icon": "icon.png"
 }

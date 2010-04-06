@@ -59,7 +59,7 @@ MasterPasswordAssistant = Class.create(BaseAssistant, {
   showFirstTime: function() {
     $("first-time").show();
   },
-  
+
   pickFile: function() {
     var params = {
       kind: "file",

@@ -1,5 +1,20 @@
-#item-container .palm-info-text {
-  padding: 0;
-  margin: 0;
-  line-height: 22px;
+table {
+  width: 100%;
+  table-layout: fixed;
+  padding: 10px;
 }
+
+td, th {
+  padding: 5px;
+  font-size: 18px;
+  color: grey;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+th {
+  text-align: left;
+  width: 35%;
+}
+

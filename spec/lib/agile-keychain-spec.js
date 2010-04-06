@@ -47,6 +47,20 @@ describe("AgileKeychain", function() {
       })
     });
 
+    it("should decrypt notes", function() {
+      loadItems(2, "Secure Notes");
+
+      runs(function() {
+        expect(this.items.first().title).toEqual("secure note 1");
+        expect(this.items.first().isNote).toEqual(true);
+        loadItem(this.items.first());
+      });
+
+      runs(function() {
+        expect(this.item.decrypted_secure_contents.notesPlain).toEqual("secure notes");
+      })
+    });
+
     function loadItems(index, name) {
       runs(function() {
         this.items = keychain.groups()[index];

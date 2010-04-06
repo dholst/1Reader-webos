@@ -79,6 +79,7 @@ AgileKeychain = Class.create({
 
     group.each(function(item) {
       item.isLogin = (item.type == TYPE_WEBFORMS)
+      item.isNote = (item.type == TYPE_NOTES)
     });
 
     return group

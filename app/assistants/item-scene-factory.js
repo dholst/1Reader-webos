@@ -4,6 +4,10 @@ ItemSceneFactory = {
       return "login-item";
     }
     
+    if(item.isNote) {
+      return "note-item"
+    }
+    
     return "unknown-item";
   }
 }

@@ -1,14 +1,41 @@
 [
-  {source: "app/assistants/item-scene-factory.js"},
-  {source: "app/assistants/stage-assistant.js"},
-  {source: "app/assistants/base-assistant.js"},
-  {source: "app/assistants/groups-assistant.js"},
-  {source: "app/assistants/items-assistant.js"},
-  {source: "app/assistants/master-password-assistant.js"},
-  {source: "app/assistants/item-assistant.js"},
-  {source: "app/assistants/login-item-assistant.js"},
-  {source: "app/assistants/note-item-assistant.js"},
-  {source: "app/assistants/unknown-item-assistant.js"},
-  {source: "app/lib/ajax.js"},
-  {source: "app/lib/agile-keychain.js"}
+    {
+        source: "app/assistants/item-scene-factory.js"
+    },
+    {
+        source: "app/assistants/stage-assistant.js"
+    },
+    {
+        source: "app/assistants/base-assistant.js"
+    },
+    {
+        source: "app/assistants/groups-assistant.js"
+    },
+    {
+        source: "app/assistants/items-assistant.js"
+    },
+    {
+        source: "app/assistants/locked-assistant.js"
+    },
+    {
+        source: "app/assistants/item-assistant.js"
+    },
+    {
+        source: "app/assistants/login-item-assistant.js"
+    },
+    {
+        source: "app/assistants/note-item-assistant.js"
+    },
+    {
+        source: "app/assistants/unknown-item-assistant.js"
+    },
+    {
+        source: "app/lib/ajax.js"
+    },
+    {
+        source: "app/lib/agile-keychain.js"
+    },
+    {
+        source: "app/models/preferences.js"
+    }
 ]

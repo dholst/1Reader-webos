@@ -1,4 +1,4 @@
-Mojo = {
+    Mojo = {
   Service: {
     Request: {}
   },
@@ -25,5 +25,9 @@ Mojo = {
 
   Widget: {
     spinnerLarge: "spinner-large"
+  },
+
+  Model: {
+      Cookie: function(){}
   }
-};
+}

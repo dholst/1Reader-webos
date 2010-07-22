@@ -7,54 +7,51 @@ LockedAssistant = Class.create(BaseAssistant, {
     $super()
     this.controller.setupWidget("password", {}, this.password)
     this.controller.listen("unlock", Mojo.Event.tap, this.unlock = this.unlock.bind(this))
+    this.controller.setupWidget(
+      Mojo.Menu.appMenu,
+      {omitDefaultItems: true},
+      {
+        visible: true,
+        items: [
+          Mojo.Menu.editItem,
+          {label: "Preferences", command: Mojo.Menu.prefsCmd},            
+          {label: "Help", command: Mojo.Menu.helpCmd}
+        ]
+      }
+    )
   },
 
-  ready: function() {
+  activate: function() {
     var location = Preferences.keychainLocation()
 
     if(location && location.length) {
       this.createKeychain(location)
     }
     else {
-      this.showFirstTime()
+      this.controller.stageController.pushScene("preferences")
     }
   },
 
   createKeychain: function(location) {
     this.spinnerOn()
-    this.showPasswordEntry()
 
     this.keychain = AgileKeychain.create(location, function() {
       this.spinnerOff()
     }.bind(this))
   },
 
-  showPasswordEntry: function() {
-    $("password-entry").show()
-    $("first-time").hide()
-  },
-
-  hidePasswordEntry: function() {
-    $("password-entry").hide()
-    $("first-time").hide()
-  },
-
-  showFirstTime: function() {
-    $("first-time").show()
-  },
-
-//  pickFile: function() {
-//    var params = {
-//      kind: "file",
-//      extensions: ["html"],
-//
-//      onSelect: function(response) {
-//        this.createKeychain(response.fullPath.substring(0, response.fullPath.indexOf("1Password.html")))
-//      }.bind(this)
-//    }
-//
-//    Mojo.FilePicker.pickFile(params, this.controller.stageController)
-//  },
+  //  pickFile: function() {
+  //    var params = {
+  //      kind: "file",
+  //      extensions: ["html"],
+  //
+  //      onSelect: function(response) {
+  //        this.createKeychain(response.fullPath.substring(0, response.fullPath.indexOf("1Password.html")))
+  //      }.bind(this)
+  //    }
+  //
+  //    Mojo.FilePicker.pickFile(params, this.controller.stageController)
+  //  },
 
   unlock: function() {
     if(this.keychain.unlock(this.password.value)) {
@@ -65,6 +62,16 @@ LockedAssistant = Class.create(BaseAssistant, {
     }
     else {
       $("invalid-password").show()
+    }
+  },
+
+  handleCommand: function($super, event) {
+    if(event.command === Mojo.Menu.prefsCmd) {
+      this.controller.stageController.pushScene("preferences")
+      event.stop()
+    }
+    else {
+      $super(event)
     }
   }
 })

@@ -1,0 +1,3 @@
+PreferencesAssistant = Class.create({
+  
+})

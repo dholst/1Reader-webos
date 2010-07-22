@@ -4,7 +4,12 @@
   },
 
   Menu: {
-    commandMenu: {}
+    commandMenu: "commandMenu",
+    appMenu: "appMenu",
+    editItem: "editItem",
+    prefsItem: "prefsItem",
+    prefsCmd: "prefsCmd",
+    helpCmd: "helpCmd"
   },
 
   Event : {

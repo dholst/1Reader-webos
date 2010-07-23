@@ -1,12 +1,15 @@
-Preferences = Class.create({
-})
+Preferences = {
+  KEYCHAIN_LOCATION: "keychain-location",
 
-Preferences.keychainLocation = function() {
-  var cookie = Mojo.Model.Cookie("keychain-location")
+  getKeychainLocation: function() {
+    return this.cookieFor(this.KEYCHAIN_LOCATION).get()
+  },
 
-  if(cookie == null) {
-    return null
+  setKeychainLocation: function(value) {
+    this.cookieFor(this.KEYCHAIN_LOCATION).put(value)
+  },
+
+  cookieFor: function(name) {
+    return new Mojo.Model.Cookie(name)
   }
-
-  return cookie.get()
 }

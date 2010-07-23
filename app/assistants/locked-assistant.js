@@ -22,7 +22,7 @@ LockedAssistant = Class.create(BaseAssistant, {
   },
 
   activate: function() {
-    var location = Preferences.keychainLocation()
+    var location = Preferences.getKeychainLocation()
 
     if(location && location.length) {
       this.createKeychain(location)
@@ -39,19 +39,6 @@ LockedAssistant = Class.create(BaseAssistant, {
       this.spinnerOff()
     }.bind(this))
   },
-
-  //  pickFile: function() {
-  //    var params = {
-  //      kind: "file",
-  //      extensions: ["html"],
-  //
-  //      onSelect: function(response) {
-  //        this.createKeychain(response.fullPath.substring(0, response.fullPath.indexOf("1Password.html")))
-  //      }.bind(this)
-  //    }
-  //
-  //    Mojo.FilePicker.pickFile(params, this.controller.stageController)
-  //  },
 
   unlock: function() {
     if(this.keychain.unlock(this.password.value)) {

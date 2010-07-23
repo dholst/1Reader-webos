@@ -30,7 +30,7 @@ describe("LockedAssistant", function() {
   })
 
   it("should show error if keychain not found", function() {
-    spyOn(Preferences, "keychainLocation").andReturn(null)
+    spyOn(Preferences, "getKeychainLocation").andReturn(null)
     spyOn(assistant.controller.stageController, "pushScene")
 
     assistant.activate()
@@ -39,7 +39,7 @@ describe("LockedAssistant", function() {
   })
 
   it("should create keychain if location available", function() {
-    spyOn(Preferences, "keychainLocation").andReturn("location")
+    spyOn(Preferences, "getKeychainLocation").andReturn("location")
     spyOn(assistant, "createKeychain")
 
     assistant.activate()

@@ -1,17 +1,21 @@
 describe("Preferences", function() {
-  it("should find keychain location", function() {
-    spyOn(Mojo.Model, "Cookie").andReturn({get: function() {
-      return "the keychain location"
-    }})
+  var cookie
 
-    expect(Preferences.keychainLocation()).toEqual("the keychain location")
-
-    expect(Mojo.Model.Cookie).wasCalledWith("keychain-location")
+  beforeEach(function() {
+    cookie = {get: function() {}, put: function() {}}
+    spyOn(Preferences, "cookieFor").andReturn(cookie)
   })
 
-  it("should return null keychain location", function() {
-    spyOn(Mojo.Model, "Cookie").andReturn(null)
+  it("should set keychain location", function() {
+    spyOn(cookie, "put")
+    Preferences.setKeychainLocation("the location")
+    expect(cookie.put).wasCalledWith("the location")
+    expect(Preferences.cookieFor).wasCalledWith(Preferences.KEYCHAIN_LOCATION)
+  })
 
-    expect(Preferences.keychainLocation()).toEqual(null)
+  it("should find keychain location", function() {
+    spyOn(cookie, "get").andReturn("the keychain location")
+    expect(Preferences.getKeychainLocation()).toEqual("the keychain location")
+    expect(Preferences.cookieFor).wasCalledWith(Preferences.KEYCHAIN_LOCATION)
   })
 })

@@ -1,43 +1,33 @@
 LockedAssistant = Class.create(BaseAssistant, {
   initialize: function() {
     this.password = {value: ""}
+    this.button = {buttonLabel: "Unlock", disabled: true}
+    this.allowPreferences = true
   },
 
   setup: function($super) {
     $super()
     this.controller.setupWidget("password", {}, this.password)
     this.controller.listen("unlock", Mojo.Event.tap, this.unlock = this.unlock.bind(this))
-    this.controller.setupWidget(
-      Mojo.Menu.appMenu,
-      {omitDefaultItems: true},
-      {
-        visible: true,
-        items: [
-          Mojo.Menu.editItem,
-          {label: "Preferences", command: Mojo.Menu.prefsCmd},            
-          {label: "Help", command: Mojo.Menu.helpCmd}
-        ]
-      }
-    )
-  },
-
-  activate: function() {
-    var location = Preferences.getKeychainLocation()
-
-    if(location && location.length) {
-      this.createKeychain(location)
-    }
-    else {
-      this.controller.stageController.pushScene("preferences")
-    }
+    this.controller.setupWidget("unlock", {type: Mojo.Widget.activityButton}, this.button)
   },
 
   createKeychain: function(location) {
     this.spinnerOn()
+    AgileKeychain.create(location, this.keychainLoaded.bind(this), this.keychainNotFound.bind(this))
+  },
 
-    this.keychain = AgileKeychain.create(location, function() {
-      this.spinnerOff()
-    }.bind(this))
+  activate: function() {
+    this.createKeychain(Preferences.getKeychainLocation())
+  },
+
+  keychainLoaded: function(keychain) {
+    this.keychain = keychain
+    this.spinnerOff()
+  },
+
+  keychainNotFound: function() {
+    this.controller.stageController.swapScene("not-found")
   },
 
   unlock: function() {
@@ -49,16 +39,6 @@ LockedAssistant = Class.create(BaseAssistant, {
     }
     else {
       $("invalid-password").show()
-    }
-  },
-
-  handleCommand: function($super, event) {
-    if(event.command === Mojo.Menu.prefsCmd) {
-      this.controller.stageController.pushScene("preferences")
-      event.stop()
-    }
-    else {
-      $super(event)
     }
   }
 })

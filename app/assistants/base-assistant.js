@@ -2,17 +2,22 @@ BaseAssistant = Class.create({
   setup: function() {
     this.controller.setupWidget("spinner", {spinnerSize: Mojo.Widget.spinnerLarge}, {})
 
+    var appMenuItems = []
+    appMenuItems.push(Mojo.Menu.editItem)
+    if(this.allowPreferences) appMenuItems.push({label: "Preferences", command: Mojo.Menu.prefsCmd})
+    appMenuItems.push({label: "Help", command: Mojo.Menu.helpCmd})
+
     this.controller.setupWidget(
       Mojo.Menu.appMenu,
       {omitDefaultItems: true},
       {
         visible: true,
-        items: [
-          Mojo.Menu.editItem,
-          {label: "Help", command: Mojo.Menu.helpCmd}
-        ]
+        items: appMenuItems
       }
     )
+  },
+
+  cleanup: function() {
   },
 
   spinnerOn: function(message) {
@@ -35,10 +40,14 @@ BaseAssistant = Class.create({
     $$(".spinner").first().mojo.stop()
     $$(".palm-scrim").first().hide()
   },
-  
+
   handleCommand: function(event) {
     if(Mojo.Menu.helpCmd == event.command) {
       this.controller.stageController.pushScene("help")
+      event.stop()
+    }
+    else if(Mojo.Menu.prefsCmd == event.command) {
+      this.controller.stageController.pushScene("preferences")
       event.stop()
     }
   }

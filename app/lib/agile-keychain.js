@@ -86,8 +86,15 @@ AgileKeychain = Class.create({
   }
 });
 
-AgileKeychain.create = function(baseFolder, callback) {
-  var keychain = new AgileKeychain();
-  keychain._load(baseFolder, callback);
-  return keychain;
+AgileKeychain.create = function(baseFolder, success, failure) {
+  new Ajax.Request(baseFolder + "style/scripts/1PasswordAnywhere.js", {
+    method: 'get',
+
+    onSuccess: function() {
+      var keychain = new AgileKeychain()
+      keychain._load(baseFolder, success.bind(this, keychain))
+    },
+
+    onFailure: failure
+  })
 }

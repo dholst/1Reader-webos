@@ -2,38 +2,33 @@
     <div class="palm-header center" id="main-hdr">Preferences</div>
 </div>
 
-<div class="palm-group unlabeled">
-    <div class="palm-list">
-        <div class="palm-row single">
-            <div class="palm-row-wrapper">
-                <div x-mojo-element="CheckBox" id="dropbox-sync"></div>
-                <div class="title">Sync with Dropbox</div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="palm-group" id="keychain-location-group" style="display: none">
-    <div class="palm-group-title" x-mojo-loc=''>Keychain Location</div>
+<div class="palm-group" id="keychain-location-group">
+    <div class="palm-group-title" x-mojo-loc=''>Local keychain</div>
     <div class="palm-list">
         <div class="palm-row single">
             <div class="palm-row-wrapper textfield-group">
                 <div class="title">
-                    <div id="keychain-location" class="truncating-text"></div>
+                    <div id="keychain-location" class="truncating-text">Tap to select</div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="palm-group" id="dropbox-location-group" style="display: none">
-    <div class="palm-group-title" x-mojo-loc=''>Dropbox Location</div>
+<div class="palm-group" id="dropbox-location-group">
+    <div class="palm-group-title" x-mojo-loc=''>Dropbox keychain</div>
     <div class="palm-list">
         <div class="palm-row single">
             <div class="palm-row-wrapper textfield-group">
                 <div class="title">
-                    <div id="dropbox-location" class="truncating-text"></div>
+                    <div id="dropbox-location" class="truncating-text">Tap to select</div>
                 </div>
+            </div>
+        </div>
+
+        <div class="palm-row single">
+            <div class="palm-row-wrapper textfield-group">
+                <div x-mojo-element="Button" id="sync-dropbox"></div>
             </div>
         </div>
     </div>

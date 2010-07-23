@@ -18,6 +18,9 @@
     "source": "app/assistants/groups-assistant.js"
   },
   {
+    "source": "app/assistants/not-found-assistant.js"
+  },
+  {
     "source": "app/assistants/items-assistant.js"
   },
   {

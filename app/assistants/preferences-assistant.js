@@ -1,4 +1,4 @@
-PreferencesAssistant = Class.create(BaseAssistant, {
+var PreferencesAssistant = Class.create(BaseAssistant, {
   initialize: function() {
     this.syncDropbox = {}
   },
@@ -44,7 +44,7 @@ PreferencesAssistant = Class.create(BaseAssistant, {
   },
 
   selectDropboxLocation: function() {
-
+    this.controller.stageController.pushScene("dropbox-folder-select")
   },
   
   selectKeychainLocation: function() {

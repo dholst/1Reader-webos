@@ -1,8 +1,12 @@
 var PreferencesAssistant = Class.create(BaseAssistant, {
+  initialize: function() {
+    this.keychainLocation = {}
+  },
+
   setup: function($super) {
     $super()
     this.controller.setupWidget('sync-dropbox', {}, {buttonLabel: "Sync"})
-    this.controller.listen('keychain-location', Mojo.Event.tap, this.selectKeychainLocation = this.selectKeychainLocation.bind(this))
+    this.controller.setupWidget('keychain-location', {}, this.keychainLocation)
     this.controller.listen('dropbox-location', Mojo.Event.tap, this.selectDropboxLocation = this.selectDropboxLocation.bind(this))
     this.controller.listen('sync-dropbox', Mojo.Event.tap, this.syncDropbox = this.syncDropbox.bind(this))
   },
@@ -13,38 +17,18 @@ var PreferencesAssistant = Class.create(BaseAssistant, {
 
   cleanup: function($super) {
     $super()
-    this.controller.stopListening('keychain-location', Mojo.Event.tap, this.selectKeychainLocation)
     this.controller.stopListening('dropbox-location', Mojo.Event.tap, this.selectKeychainLocation)
     this.controller.stopListening('sync-dropbox', Mojo.Event.tap, this.syncDropbox)
   },
 
   setCurrentPreferences: function() {
-    this.controller.update("keychain-location", Preferences.getKeychainLocation())
+    this.keychainLocation.value = Preferences.getKeychainLocation()
+    this.controller.modelChanged(this.keychainLocation)
     this.controller.update("dropbox-location", Preferences.getDropboxLocation())
   },
 
   selectDropboxLocation: function() {
     this.controller.stageController.pushScene("dropbox-folder-select")
-  },
-
-  selectKeychainLocation: function() {
-    var params = {
-      kind: "file",
-      extensions: ["html"],
-      onSelect: this.keychainSelected.bind(this)
-    }
-
-    Mojo.FilePicker.pickFile(params, this.controller.stageController)
-  },
-
-  keychainSelected: function(response) {
-    var i = response.fullPath.indexOf("1Password.html")
-
-    if(i) {
-      Preferences.setKeychainLocation(response.fullPath.substring(0, i))
-    }
-
-    this.setCurrentPreferences()
   },
 
   syncDropbox: function() {

@@ -33,6 +33,9 @@
     "source": "app/assistants/locked-assistant.js"
   },
   {
+    "source": "app/assistants/unlock-assistant.js"
+  },
+  {
     "source": "app/assistants/item-assistant.js"
   },
   {

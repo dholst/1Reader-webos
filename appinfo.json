@@ -1,9 +1,9 @@
 {
-	"id": "com.semicolonapps.1reader",
-	"version": "0.0.2",
+	"id": "com.semicolonapps.1reader.pro",
+	"version": "0.1.0",
 	"vendor": "Semicolon Apps",
 	"type": "web",
 	"main": "index.html",
-	"title": "1Reader",
-	"icon": "icon_blue_56.png"
+	"title": "1Reader Pro",
+	"icon": "icon_lock_64.png"
 }

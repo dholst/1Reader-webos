@@ -9,16 +9,25 @@ LockedAssistant = Class.create(BaseAssistant, {
 
   setup: function($super) {
     $super()
-    this.controller.setupWidget("password", {}, this.password)
+    this.controller.setupWidget("password", {autoFocus: true, changeOnKeyPress: true}, this.password)
     this.controller.setupWidget("unlock", {}, this.button)
     this.controller.listen("unlock", Mojo.Event.tap, this.unlock = this.unlock.bind(this))
+    this.controller.listen("password", Mojo.Event.propertyChange, this.passwordChanged = this.passwordChanged.bind(this))
+  },
+
+  cleanup: function($super) {
+    $super()
+    this.controller.stopListening("unlock", Mojo.Event.tap, this.unlock)
+    this.controller.stopListening("password", Mojo.Event.propertyChanged, this.passwordChanged)
   },
 
   activate: function() {
+    $("password").mojo.setConsumesEnterKey(false)
+    $("password").mojo.focus()
+
     if(this.keychain) {
       if(this.unlocked) {
         this.controller.stageController.pushScene("groups", this.keychain)
-        this.keychain = null
       }
       else {
         $("invalid-password").show()
@@ -30,6 +39,16 @@ LockedAssistant = Class.create(BaseAssistant, {
     }
   },
 
+  deactivate: function() {
+    this.keychain = null
+  },
+
+  passwordChanged: function(event) {
+    if(Mojo.Char.enter === event.originalEvent.keyCode) {
+      this.unlock()
+    }
+  },
+  
   keychainLoaded: function(keychain) {
     this.keychain = keychain
     this.spinnerOff()

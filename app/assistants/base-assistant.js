@@ -43,7 +43,7 @@ BaseAssistant = Class.create({
 
   handleCommand: function(event) {
     console.log(event.command)
-    
+
     if(Mojo.Menu.helpCmd == event.command) {
       this.controller.stageController.pushScene("help")
       event.stop()

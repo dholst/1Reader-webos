@@ -9,10 +9,16 @@
     "source": "app/assistants/base-assistant.js"
   },
   {
+    "source": "app/assistants/base-dropbox-assistant.js"
+  },
+  {
     "source": "app/assistants/dropbox-authentication-assistant.js"
   },
   {
     "source": "app/assistants/dropbox-folder-select-assistant.js"
+  },
+  {
+    "source": "app/assistants/dropbox-sync-assistant.js"
   },
   {
     "source": "app/assistants/groups-assistant.js"
@@ -64,5 +70,8 @@
   },
   {
     "source": "app/models/preferences.js"
+  },
+  {
+    "source": "app/models/download-manager.js"
   }
 ]

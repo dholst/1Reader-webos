@@ -1,36 +1,20 @@
-var DropboxFolderSelectAssistant = Class.create(BaseAssistant, {
+var DropboxFolderSelectAssistant = Class.create(BaseDropboxAssistant, {
   initialize: function() {
     this.folders = {items: []}
     this.paths = []
+    this.sceneName = 'dropbox-folder-select'
+    this.whenAuthenticated = this.showFolders.bind(this, '/')
   },
 
   setup: function($super) {
     $super()
-
-    var listAttributes = {
-      listTemplate: "dropbox/folders",
-      itemTemplate: "dropbox/folder"
-    }
-
-    this.controller.setupWidget('folders', listAttributes, this.folders)
+    this.controller.setupWidget('folders', {listTemplate: "dropbox/folders", itemTemplate: "dropbox/folder"}, this.folders)
     this.controller.listen("folders", Mojo.Event.listTap, this.folderTapped = this.folderTapped.bind(this))
   },
 
   cleanup: function($super) {
     $super()
     this.controller.stopListening("folders", Mojo.Event.listTap, this.folderTapped)
-  },
-
-  activate: function() {
-    this.accessToken = Preferences.getDropboxAccessToken()
-
-    if(this.accessToken == null) {
-      this.authenticate()
-    }
-    else {
-      this.showSpinner()
-      Dropbox.checkAccessToken(this.accessToken, this.showFolders.bind(this, '/'), this.authenticate.bind(this))
-    }
   },
 
   folderTapped: function(event) {
@@ -44,20 +28,9 @@ var DropboxFolderSelectAssistant = Class.create(BaseAssistant, {
   },
 
   showFolders: function(path) {
-    this.showSpinner()
-    this.paths.push(path)
-    this.showPaths()
-    Dropbox.folderList(this.accessToken, path, this.foldersRetrieved.bind(this), this.foldersRetrievalError.bind(this))
-  },
-
-  showPaths: function() {
-    this.paths.each(function(path) {
-      console.log(path)
-    })
-  },
-  
-  showSpinner: function() {
     this.spinnerOn("getting dropbox folders")
+    this.paths.push(path)
+    Dropbox.folderList(this.accessToken, path, this.foldersRetrieved.bind(this), this.foldersRetrievalError.bind(this))
   },
 
   foldersRetrieved: function(folders) {
@@ -69,10 +42,6 @@ var DropboxFolderSelectAssistant = Class.create(BaseAssistant, {
 
   foldersRetrievalError: function() {
     this.controller.popScene()
-  },
-
-  authenticate: function() {
-    this.controller.stageController.swapScene('dropbox-authentication')
   },
 
   handleCommand: function(event) {

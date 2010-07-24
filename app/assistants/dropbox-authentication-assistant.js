@@ -1,5 +1,6 @@
 var DropboxAuthenticationAssistant = Class.create(BaseAssistant, {
-  initialize: function() {
+  initialize: function(backTo) {
+    this.backTo = backTo
     this.user = {username: "", password: ""}
     this.button = {buttonLabel: "Login", disabled: true}
   },
@@ -54,7 +55,7 @@ var DropboxAuthenticationAssistant = Class.create(BaseAssistant, {
 
   authenticated: function(accessToken) {
     Preferences.setDropboxAccessToken(accessToken)
-    this.controller.stageController.swapScene('dropbox-folder-select')
+    this.controller.stageController.swapScene(this.backTo)
   },
 
   notAuthenticated: function() {

@@ -1,0 +1,92 @@
+var DropboxSyncAssistant = Class.create(BaseDropboxAssistant, {
+  initialize: function() {
+    this.dropboxPath = Preferences.getDropboxLocation()
+    this.localPath = Preferences.getKeychainLocation()
+    this.localKeychain = new AgileKeychain(this.localPath)
+    this.sceneName = 'dropbox-sync'
+    this.whenAuthenticated = this.sync.bind(this)
+    this.staticFiles = this.localKeychain.staticFiles()
+  },
+
+  sync: function() {
+    this.localKeychain.allRawItems(this.gotOldItems.bind(this))
+  },
+
+  gotOldItems: function(items) {
+    this.oldItems = items
+    this.syncNextStaticFile()
+  },
+
+  syncNextStaticFile: function() {
+    var file = this.staticFiles[0]
+    this.spinnerOn("syncing " + file.name + "...")
+    var url = Dropbox.downloadUrlFor(this.accessToken, this.dropboxPath + file.directory + "/" + file.name)
+    DownloadManager.download(url, this.localPath + file.directory, file.name, this.staticFileSynced.bind(this), this.syncError.bind(this))
+  },
+
+  staticFileSynced: function() {
+    this.staticFiles = this.staticFiles.slice(1)
+
+    if(this.staticFiles.length) {
+      this.syncNextStaticFile()()
+    }
+    else {
+      this.syncContents()
+    }
+  },
+
+  syncContents: function() {
+    this.localKeychain.allRawItems(this.gotNewItems.bind(this))
+  },
+
+  gotNewItems: function(items) {
+    this.newItems = items
+
+    var lastItemSyncedAt = 0
+
+    this.oldItems.each(function(item) {
+      if(item[4] > lastItemSyncedAt) {
+        lastItemSyncedAt = item[4]
+      }
+    })
+
+    this.syncNextItem(0, lastItemSyncedAt)
+  },
+
+  syncNextItem: function(index, lastSyncedAt) {
+    if(index >= this.newItems.length) {
+      this.controller.stageController.popScene()
+      return
+    }
+
+    this.spinnerOn("syncing " + this.newItems[index][2])
+
+    if(this.newItems[index][4] > lastSyncedAt) {
+      this.syncItem(index, lastSyncedAt)
+    }
+    else {
+      new Ajax.Request(this.localKeychain.itemLocationOf(this.newItems[index][0]), {
+        method: 'get',
+        onSuccess: this.syncNextItem.bind(this, index + 1, lastSyncedAt),
+        onFailure: this.syncItem.bind(this, index, lastSyncedAt)
+      })
+    }
+  },
+
+  syncItem: function(index, lastSyncedAt) {
+    var filename = this.newItems[index][0] + ".1password"
+    var url = Dropbox.downloadUrlFor(this.accessToken, this.dropboxPath + "/data/default/" + filename)
+
+    DownloadManager.download(
+        url,
+        this.localPath + "/data/default/",
+        filename,
+        this.syncNextItem.bind(this, index + 1, lastSyncedAt),
+        this.syncError.bind(this)
+    )
+  },
+
+  syncError: function() {
+    console.log("FUCK ME")
+  }
+})

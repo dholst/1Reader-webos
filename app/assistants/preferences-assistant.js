@@ -2,8 +2,9 @@ var PreferencesAssistant = Class.create(BaseAssistant, {
   setup: function($super) {
     $super()
     this.controller.setupWidget('sync-dropbox', {}, {buttonLabel: "Sync"})
-    this.controller.listen('keychain-location-group', Mojo.Event.tap, this.selectKeychainLocation = this.selectKeychainLocation.bind(this))
-    this.controller.listen('dropbox-location-group', Mojo.Event.tap, this.selectDropboxLocation = this.selectDropboxLocation.bind(this))
+    this.controller.listen('keychain-location', Mojo.Event.tap, this.selectKeychainLocation = this.selectKeychainLocation.bind(this))
+    this.controller.listen('dropbox-location', Mojo.Event.tap, this.selectDropboxLocation = this.selectDropboxLocation.bind(this))
+    this.controller.listen('sync-dropbox', Mojo.Event.tap, this.syncDropbox = this.syncDropbox.bind(this))
   },
 
   activate: function() {
@@ -12,8 +13,9 @@ var PreferencesAssistant = Class.create(BaseAssistant, {
 
   cleanup: function($super) {
     $super()
-    this.controller.stopListening('keychain-location-group', Mojo.Event.tap, this.selectKeychainLocation)
-    this.controller.stopListening('dropbox-location-group', Mojo.Event.tap, this.selectKeychainLocation)
+    this.controller.stopListening('keychain-location', Mojo.Event.tap, this.selectKeychainLocation)
+    this.controller.stopListening('dropbox-location', Mojo.Event.tap, this.selectKeychainLocation)
+    this.controller.stopListening('sync-dropbox', Mojo.Event.tap, this.syncDropbox)
   },
 
   setCurrentPreferences: function() {
@@ -43,5 +45,9 @@ var PreferencesAssistant = Class.create(BaseAssistant, {
     }
 
     this.setCurrentPreferences()
+  },
+
+  syncDropbox: function() {
+    this.controller.stageController.pushScene("dropbox-sync")
   }
 })

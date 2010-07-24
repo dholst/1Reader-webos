@@ -45,6 +45,19 @@ var Dropbox = {
     this.sendRequest(message, this.secrets(accessToken.secret), this.sendFoldersResponse.bind(this, success), failure)
   },
 
+  downloadUrlFor: function(accessToken, path) {
+    var message = {
+      method: 'GET',
+      action: 'https://api-content.dropbox.com/0/files/dropbox' + encodeURIComponent(path).replace(/%2f/gi, '/'),
+      parameters: {
+        oauth_token: accessToken.key,
+        oauth_consumer_key: DropboxConsumerToken.key
+      }
+    }
+
+    return this.urlFor(message, this.secrets(accessToken.secret))
+  },
+
   sendFoldersResponse: function(callback, response) {
     var json = eval('(' + response.responseText + ')')
     var folders = []
@@ -69,11 +82,14 @@ var Dropbox = {
     return secrets
   },
 
-  sendRequest: function(message, secrets, success, failure) {
+  urlFor: function(message, secrets) {
     OAuth.setTimestampAndNonce(message)
     OAuth.SignatureMethod.sign(message, secrets)
+    return OAuth.addToURL(message.action, message.parameters)
+  },
 
-    new Ajax.Request(OAuth.addToURL(message.action, message.parameters), {
+  sendRequest: function(message, secrets, success, failure) {
+    new Ajax.Request(this.urlFor(message, secrets), {
       method: message.method,
       onSuccess: success,
       onFailure: failure

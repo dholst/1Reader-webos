@@ -18,7 +18,7 @@ AgileKeychain = Class.create({
     var groups = [];
     groups.push(this._group(TYPE_WEBFORMS, "Logins"));
 //  	groups.push(this._group(TYPE_IDENTITIES, "Identities"));
-  	groups.push(this._group(TYPE_NOTES, "Secure Notes"));
+  	groups.push(this._group(TYPE_NOTES, "Notes"));
 //  	groups.push(this._group(TYPE_SOFTWARE_LICENSES, "Software"));
 //  	groups.push(this._group(TYPE_WALLET, "Wallet"));
 //  	groups.push(this._group(TYPE_PASSWORDS, "Passwords"));

@@ -20,7 +20,7 @@ describe("AgileKeychain", function() {
     expect(keychain.groups().length).toEqual(7);
     checkGroup(0, "Logins", 1);
     checkGroup(1, "Identities", 1);
-    checkGroup(2, "Secure Notes", 1);
+    checkGroup(2, "Notes", 1);
     checkGroup(3, "Software", 1);
     checkGroup(4, "Wallet", 2);
     checkGroup(5, "Passwords", 1);
@@ -48,7 +48,7 @@ describe("AgileKeychain", function() {
     });
 
     it("should decrypt notes", function() {
-      loadItems(2, "Secure Notes");
+      loadItems(2, "Notes");
 
       runs(function() {
         expect(this.items.first().title).toEqual("secure note 1");

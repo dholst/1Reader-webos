@@ -12,10 +12,16 @@ var DropboxAuthenticationAssistant = Class.create(BaseAssistant, {
     this.controller.setupWidget("authenticate", {type: Mojo.Widget.activityButton}, this.button)
 
     this.propertyChanged = this.propertyChanged.bind(this)
-
     this.controller.listen("username", Mojo.Event.propertyChange, this.propertyChanged)
     this.controller.listen("password", Mojo.Event.propertyChange, this.propertyChanged)
     this.controller.listen("authenticate", Mojo.Event.tap, this.authenticate = this.authenticate.bind(this))
+  },
+
+  cleanup: function($super) {
+    $super()
+    this.controller.stopListening("username", Mojo.Event.propertyChange, this.propertyChanged)
+    this.controller.stopListening("password", Mojo.Event.propertyChange, this.propertyChanged)
+    this.controller.stopListening("authenticate", Mojo.Event.tap, this.authenticate)
   },
 
   activate: function() {

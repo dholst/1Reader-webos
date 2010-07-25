@@ -10,6 +10,11 @@ GroupsAssistant = Class.create(BaseAssistant, {
     this.controller.listen("groups", Mojo.Event.listTap, this.groupTapped = this.groupTapped.bind(this))
   },
 
+  cleanup: function($super) {
+    $super()
+    this.controller.stopListening("groups", Mojo.Event.listTap, this.groupTapped)
+  },
+
   groupTapped: function(event) {
     this.controller.stageController.pushScene("items", this.keychain, event.item)
   }

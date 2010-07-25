@@ -13,6 +13,7 @@ LockedAssistant = Class.create(BaseAssistant, {
     this.controller.setupWidget("unlock", {}, this.button)
     this.controller.listen("unlock", Mojo.Event.tap, this.unlock = this.unlock.bind(this))
     this.controller.listen("password", Mojo.Event.propertyChange, this.passwordChanged = this.passwordChanged.bind(this))
+    OneReader.Metrix.checkBulletinBoard(this.controller)
   },
 
   cleanup: function($super) {

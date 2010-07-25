@@ -66,6 +66,15 @@
     "source": "app/lib/oauth/sha1.js"
   },
   {
+    "source": "app/lib/async-wrapper.js"
+  },
+  {
+    "source": "app/lib/metrix.js"
+  },
+  {
+    "source": "app/lib/1Reader.js"
+  },
+  {
     "source": "app/models/dropbox.js"
   },
   {

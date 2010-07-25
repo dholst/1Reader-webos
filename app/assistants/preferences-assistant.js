@@ -17,7 +17,7 @@ var PreferencesAssistant = Class.create(BaseAssistant, {
 
   cleanup: function($super) {
     $super()
-    this.controller.stopListening('dropbox-location', Mojo.Event.tap, this.selectKeychainLocation)
+    this.controller.stopListening('dropbox-location', Mojo.Event.tap, this.selectDropboxLocation)
     this.controller.stopListening('sync-dropbox', Mojo.Event.tap, this.syncDropbox)
   },
 

@@ -95,6 +95,6 @@ var DropboxSyncAssistant = Class.create(BaseDropboxAssistant, {
   },
 
   syncError: function() {
-    console.log("FUCK ME")
+    this.controller.stageController.swapScene("bail", "Error performing sync")
   }
 })

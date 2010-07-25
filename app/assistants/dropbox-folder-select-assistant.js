@@ -41,7 +41,7 @@ var DropboxFolderSelectAssistant = Class.create(BaseDropboxAssistant, {
   },
 
   foldersRetrievalError: function() {
-    this.controller.popScene()
+    this.controller.stageController.swapScene("bail", "Error retrieving dropbox folders")
   },
 
   handleCommand: function(event) {

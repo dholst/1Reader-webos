@@ -44,8 +44,6 @@ Preferences = {
   },
 
   cookieFor: function(name) {
-    var cookie = new Mojo.Model.Cookie(name)
-    console.log("retrieving cookie, name: " + name + ", value: " + cookie.get())
-    return cookie
+    return new Mojo.Model.Cookie(name)
   }
 }

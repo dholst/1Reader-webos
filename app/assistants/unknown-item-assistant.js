@@ -1,2 +1,2 @@
 UnknownItemAssistant = Class.create(ItemAssistant, {
-});
+})

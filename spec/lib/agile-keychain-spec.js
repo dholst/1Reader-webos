@@ -4,7 +4,7 @@ describe("AgileKeychain", function() {
   var successCallback;
 
   beforeEach(function() {
-    successCallback = jasmine.createSpy("successCallback");
+    successCallback = function(returnedKeychain){keychain = returnedKeychain}
     loadKeychain();
   });
 
@@ -17,14 +17,14 @@ describe("AgileKeychain", function() {
   });
 
   it("should get all groups from keychain", function() {
-    expect(keychain.groups().length).toEqual(7);
+    expect(keychain.groups().length).toEqual(3);
     checkGroup(0, "Logins", 1);
-    checkGroup(1, "Identities", 1);
-    checkGroup(2, "Notes", 1);
-    checkGroup(3, "Software", 1);
-    checkGroup(4, "Wallet", 2);
-    checkGroup(5, "Passwords", 1);
-    checkGroup(6, "Trash", 1);
+//    checkGroup(1, "Identities", 1);
+    checkGroup(1, "Notes", 1);
+//    checkGroup(3, "Software", 1);
+//    checkGroup(4, "Wallet", 2);
+//    checkGroup(5, "Passwords", 1);
+    checkGroup(2, "Trash", 1);
   });
 
   describe("decryption", function() {
@@ -48,7 +48,7 @@ describe("AgileKeychain", function() {
     });
 
     it("should decrypt notes", function() {
-      loadItems(2, "Notes");
+      loadItems(1, "Notes");
 
       runs(function() {
         expect(this.items.first().title).toEqual("secure note 1");
@@ -91,7 +91,7 @@ describe("AgileKeychain", function() {
     waits(loadTime);
 
     runs(function() {
-      expect(successCallback).wasCalled();
+      expect(keychain)
     });
   }
 });

@@ -56,7 +56,7 @@ LockedAssistant = Class.create(BaseAssistant, {
   },
 
   keychainNotFound: function() {
-    this.controller.stageController.swapScene("not-found")
+    this.controller.stageController.swapScene("not-found", true)
   },
 
   unlock: function() {

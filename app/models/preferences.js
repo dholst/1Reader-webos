@@ -5,7 +5,7 @@ Preferences = {
   USE_DROPBOX: "use-dropbox",
 
   getKeychainLocation: function() {
-    return this.getCookie(this.KEYCHAIN_LOCATION, "/media/internal/1Password.agilekeychain/")
+    return this.getCookie(this.KEYCHAIN_LOCATION, "/media/internal/1Password.agilekeychain")
   },
 
   setKeychainLocation: function(value) {

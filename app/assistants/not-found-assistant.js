@@ -9,7 +9,7 @@ var NotFoundAssistant = Class.create(BaseAssistant, {
       this.killLoop = false
     }
     else {
-      this.controller.stageController.swapScene('locked')
+      this.controller.stageController.swapScene('load')
     }
   }
 })

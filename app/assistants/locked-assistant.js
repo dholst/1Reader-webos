@@ -30,13 +30,12 @@ LockedAssistant = Class.create(BaseAssistant, {
       if(this.unlocked) {
         this.controller.stageController.pushScene("groups", this.keychain)
       }
-      else {
+      else if(this.unlocked == false) {
         $("invalid-password").show()
       }
     }
     else {
-      this.spinnerOn("loading keychain...")
-      AgileKeychain.create(Preferences.getKeychainLocation(), this.keychainLoaded.bind(this), this.keychainNotFound.bind(this))
+      AgileKeychain.create(Preferences.getKeychainLocation(), this.loaded.bind(this), this.notFound.bind(this))
     }
   },
 
@@ -44,19 +43,18 @@ LockedAssistant = Class.create(BaseAssistant, {
     this.keychain = null
   },
 
+  loaded: function(keychain) {
+    this.keychain = keychain
+  },
+
+  notFound: function() {
+    this.controller.stageController.swapScene('not-found')  
+  },
+
   passwordChanged: function(event) {
     if(Mojo.Char.enter === event.originalEvent.keyCode) {
       this.unlock()
     }
-  },
-  
-  keychainLoaded: function(keychain) {
-    this.keychain = keychain
-    this.spinnerOff()
-  },
-
-  keychainNotFound: function() {
-    this.controller.stageController.swapScene("not-found", true)
   },
 
   unlock: function() {

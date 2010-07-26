@@ -54,6 +54,9 @@
     "source": "app/assistants/preferences-assistant.js"
   },
   {
+    "source": "app/assistants/load-assistant.js"
+  },
+  {
     "source": "app/lib/ajax.js"
   },
   {

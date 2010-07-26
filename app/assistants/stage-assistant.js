@@ -2,7 +2,7 @@ StageAssistant = Class.create({
   setup: function() {
     OneReader.Metrix.postDeviceData()
     Mojo.Event.listen(document, Mojo.Event.tap, this.documentTapped = this.documentTapped.bind(this));
-    this.controller.pushScene("locked");
+    this.controller.pushScene("load");
   },
 
   documentTapped: function(event) {

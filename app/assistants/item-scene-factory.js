@@ -8,6 +8,6 @@ ItemSceneFactory = {
       return "note-item"
     }
     
-    return "unknown-item"
+    return "generic-item"
   }
 }

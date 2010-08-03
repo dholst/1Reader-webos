@@ -18,3 +18,16 @@ th {
   width: 35%;
 }
 
+.name, .value {
+  font-size: 18px;
+  color: grey;
+}
+
+.name {
+  padding-bottom: 4px;
+}
+
+#fields .palm-row-wrapper {
+  padding: 10px;
+}
+

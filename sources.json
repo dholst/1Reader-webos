@@ -39,6 +39,9 @@
     "source": "app/assistants/item-assistant.js"
   },
   {
+    "source": "app/assistants/generic-item-assistant.js"
+  },
+  {
     "source": "app/assistants/login-item-assistant.js"
   },
   {

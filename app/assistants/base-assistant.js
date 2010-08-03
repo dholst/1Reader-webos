@@ -50,5 +50,21 @@ BaseAssistant = Class.create({
       this.controller.stageController.pushScene("preferences")
       event.stop()
     }
+  },
+
+  copy: function(event) {
+    if(event.originalEvent && event.originalEvent.target && event.originalEvent.target.hasClassName("copyable")) {
+      this.controller.popupSubmenu({
+        onChoose: this.copyIt.bind(this, event.originalEvent.target),
+        placeNear: event.originalEvent.target,
+        items: [{label: "Copy", command: "copy"}]
+      })
+    }
+  },
+
+  copyIt: function(element, command) {
+    if("copy" === command) {
+      this.controller.stageController.setClipboard(element.innerHTML);
+    }
   }
 })

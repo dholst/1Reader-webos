@@ -39,6 +39,7 @@ AgileKeychain = Class.create({
 
   _scriptLoaded: function() {
     console.log("1PasswordAnywhere.js loaded, creating keychain...")
+    window.logout = function() {console.log("no need to auto logout, we've got it covered")}
     keychain = new Keychain();
     this._loadFile(AgileKeychain.ENCRYPTION_KEYS, this._encryptionKeysLoaded.bind(this));
   },

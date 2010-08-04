@@ -3,7 +3,7 @@ var LoadAssistant = Class.create(BaseAssistant, {
     this.spinnerOn("Loading keychain...")
 
     setTimeout(function() {
-      AgileKeychain.create(Preferences.getKeychainLocation(), this.loaded.bind(this), this.notFound.bind(this))
+      AgileKeychain.create(Preferences.getKeychainLocation(), this.loaded.bind(this), this.notFound.bind(this), this.progress.bind(this))
     }.bind(this), 1000)
   },
 
@@ -13,5 +13,9 @@ var LoadAssistant = Class.create(BaseAssistant, {
 
   notFound: function() {
     this.controller.stageController.swapScene('not-found', true)
+  },
+
+  progress: function(message) {
+    this.spinnerOn(message)
   }
 })

@@ -89,10 +89,16 @@ var Dropbox = {
   },
 
   sendRequest: function(message, secrets, success, failure) {
-    new Ajax.Request(this.urlFor(message, secrets), {
-      method: message.method,
-      onSuccess: success,
-      onFailure: failure
-    })
+    if(this.requestInProgress) {
+      failure()
+    }
+    else {
+      this.requestInProgress = true
+      new Ajax.Request(this.urlFor(message, secrets), {
+        method: message.method,
+        onSuccess: function(response) {this.requestInProgress = false; success(response)}.bind(this),
+        onFailure: function(response) {this.requestInProgress = false; failure(response)}.bind(this)
+      })
+    }
   }
 }

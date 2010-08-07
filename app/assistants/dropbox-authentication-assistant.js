@@ -54,6 +54,7 @@ var DropboxAuthenticationAssistant = Class.create(BaseAssistant, {
   },
 
   authenticate: function() {
+    this.disableButton()
     this.controller.get('authentication-failure').hide()
     Dropbox.getAccessTokenFor(this.user.username, this.user.password, this.authenticated.bind(this), this.notAuthenticated.bind(this))
   },
@@ -64,6 +65,7 @@ var DropboxAuthenticationAssistant = Class.create(BaseAssistant, {
   },
 
   notAuthenticated: function() {
+    this.enableButton()
     this.controller.get('authentication-failure').show()
   }
 })

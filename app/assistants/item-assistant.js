@@ -6,6 +6,14 @@ ItemAssistant = Class.create(BaseAssistant, {
   
   setup: function($super) {
     $super()
-    this.keychain.loadItem(this.item, this.itemLoaded.bind(this))
+  },
+  
+  activate: function() {
+    this.spinnerOn("Loading item...")
+    
+    this.keychain.loadItem(this.item, function(item) {
+      this.spinnerOff()
+      this.itemLoaded(item)
+    }.bind(this))
   }
 })

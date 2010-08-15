@@ -1,7 +1,7 @@
 {
 	"id": "com.semicolonapps.1reader.pro",
-	"version": "0.2.1",
-	"vendor": "Semicolon Apps",
+	"version": "0.3.0",
+	"vendor": "SemicolonApps",
 	"type": "web",
 	"main": "index.html",
 	"title": "1Reader Pro",

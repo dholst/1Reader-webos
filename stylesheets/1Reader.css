@@ -31,3 +31,34 @@ th {
   padding: 10px;
 }
 
+#search {
+  margin-top: -5px;
+}
+
+#search input {
+  background-color: #c5c5c5;
+  padding: 10px;
+  padding-top: 15px;
+  border-bottom: 1px solid #555;
+}
+
+#search .hint-text {
+  padding: 10px;
+  padding-top: 15px;
+}
+
+#search-results {
+  background-color: #c5c5c5;
+  position: absolute;
+  top: 55px;
+  left: 10px;
+  width: 300px;
+  border: 1px solid #555;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  max-height: 300px;
+  overflow: hidden;
+  border-top: 1px solid #c5c5c5;
+  opacity: 0.9;
+  filter:alpha(opacity=80);
+}

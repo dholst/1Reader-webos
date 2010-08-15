@@ -3,6 +3,7 @@ ItemsAssistant = Class.create(BaseAssistant, {
     this.keychain = keychain
     this.groupName = items.name
     this.items = {items: items.sortBy(function(s){return s.title.toLowerCase()})}
+    this.search = {}
   },
 
   setup: function($super) {

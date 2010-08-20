@@ -12,6 +12,9 @@
     "source": "app/assistants/base-dropbox-assistant.js"
   },
   {
+    "source": "app/assistants/bail-assistant.js"
+  },
+  {
     "source": "app/assistants/dropbox-authentication-assistant.js"
   },
   {
@@ -61,6 +64,9 @@
   },
   {
     "source": "app/lib/ajax.js"
+  },  
+  {
+    "source": "app/lib/1PasswordAnywhere.js"
   },
   {
     "source": "app/lib/agile-keychain.js"

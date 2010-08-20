@@ -1,4 +1,8 @@
 StageAssistant = Class.create({
+  initialize: function() {
+    window.logout = function() {console.log("no need to auto logout, we've got it covered")}
+  },
+
   setup: function() {
     OneReader.Metrix.postDeviceData()
     Mojo.Event.listen(document, Mojo.Event.tap, this.documentTapped = this.documentTapped.bind(this));

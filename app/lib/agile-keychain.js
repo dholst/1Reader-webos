@@ -35,14 +35,6 @@ AgileKeychain = Class.create({
     this.loadedCallback = success
     this.failureCallback = failure
     this.progress = progress || function() {}
-    this.progress("Loading " + AgileKeychain.ONE_PASSWORD_ANYWHERE.name)
-    this._injectScript(this._locationOf(AgileKeychain.ONE_PASSWORD_ANYWHERE), this._scriptLoaded.bind(this));
-  },
-
-  _scriptLoaded: function() {
-    this.progress("Loaded " + AgileKeychain.ONE_PASSWORD_ANYWHERE.name)
-    console.log("1PasswordAnywhere.js loaded, creating keychain...")
-    window.logout = function() {console.log("no need to auto logout, we've got it covered")}
     keychain = new Keychain();
     this.progress("Loading " + AgileKeychain.ENCRYPTION_KEYS.name)
     this._loadFile(AgileKeychain.ENCRYPTION_KEYS, this._encryptionKeysLoaded.bind(this));
@@ -117,7 +109,6 @@ AgileKeychain = Class.create({
 
   staticFiles: function() {
     return [
-        AgileKeychain.ONE_PASSWORD_ANYWHERE,
         AgileKeychain.ENCRYPTION_KEYS,
         AgileKeychain.CONTENTS
     ]
@@ -136,12 +127,11 @@ AgileKeychain = Class.create({
   }
 })
 
-AgileKeychain.ONE_PASSWORD_ANYWHERE = {directory: "/style/scripts", name: "1PasswordAnywhere.js"}
 AgileKeychain.ENCRYPTION_KEYS = {directory: "/data/default", name: "encryptionKeys.js"}
 AgileKeychain.CONTENTS = {directory: "/data/default", name: "contents.js"}
 
 AgileKeychain.create = function(baseDirectory, success, failure, progress) {
-  new Ajax.Request(baseDirectory + AgileKeychain.ONE_PASSWORD_ANYWHERE.directory + "/" + AgileKeychain.ONE_PASSWORD_ANYWHERE.name, {
+  new Ajax.Request(baseDirectory + "/" + this.CONTENTS.directory + "/" + this.CONTENTS.name, {
     method: 'get',
 
     onSuccess: function() {

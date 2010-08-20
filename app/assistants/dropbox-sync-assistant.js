@@ -26,6 +26,7 @@ var DropboxSyncAssistant = Class.create(BaseDropboxAssistant, {
   syncNextStaticFile: function() {
     var file = this.staticFiles[0]
     var url = Dropbox.downloadUrlFor(this.accessToken, this.dropboxPath + file.directory + "/" + file.name)
+    console.log(url)
     DownloadManager.download(url, this.localPath + file.directory, file.name, this.staticFileSynced.bind(this), this.syncError.bind(this))
   },
 

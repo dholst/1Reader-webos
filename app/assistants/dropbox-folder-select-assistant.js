@@ -18,7 +18,7 @@ var DropboxFolderSelectAssistant = Class.create(BaseDropboxAssistant, {
   },
 
   folderTapped: function(event) {
-    if(event.item.name == '1Password.agilekeychain') {
+    if(event.item.name.endsWith('.agilekeychain')) {
       Preferences.setDropboxLocation(event.item.path)
       this.controller.stageController.popScene()
     }

@@ -48,7 +48,7 @@ LockedAssistant = Class.create(BaseAssistant, {
   },
 
   notFound: function() {
-    this.controller.stageController.swapScene('not-found')  
+    this.controller.stageController.swapScene('not-found')
   },
 
   passwordChanged: function(event) {

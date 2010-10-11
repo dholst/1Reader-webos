@@ -9,7 +9,13 @@ var UnlockAssistant = Class.create(BaseAssistant, {
 
     setTimeout(function() {
       var unlocked = this.keychain.unlock(this.password)
-      this.controller.stageController.swapScene('locked', this.keychain, unlocked)
+      
+      if(unlocked) {
+        this.controller.stageController.swapScene("groups", this.keychain)
+      }
+      else {
+        this.controller.stageController.swapScene('locked', this.keychain, unlocked)
+      }
     }.bind(this), 1000)
   }
 })

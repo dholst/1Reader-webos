@@ -2962,7 +2962,7 @@ var KeychainItem = Class.create({
 		this.type = data.typeName;
 		this.title = data.title;
 		this.domain = data.location;
-		this.securityLevel = data.openContents.securityLevel;
+		this.securityLevel = data.openContents ? data.openContents.securityLevel : null;
 		this.updatedAtMs = data.updatedAt * 1000;
 
 		folderName = keychain.itemWithUuid(this.folderUuid);

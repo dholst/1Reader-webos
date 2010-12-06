@@ -62,10 +62,19 @@ GroupsAssistant = Class.create(BaseAssistant, {
     this.controller.stageController.pushScene(ItemSceneFactory.get(event.item), this.keychain, event.item)
   },
 
-  handleCommand: function(event) {
-    if(event.type == Mojo.Event.back && this.showingSearch) {
-      this.hideSearch()
-      event.stop()
+  handleCommand: function($super, event) {
+    if(event.type == Mojo.Event.back) {
+      if(this.showingSearch) {
+        this.hideSearch()
+        event.stop()
+      }
+      else {
+        this.controller.stageController.swapScene("locked")
+        event.stop()
+      }
+    }
+    else {
+      $super(event)
     }
   },
 

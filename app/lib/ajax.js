@@ -9,7 +9,6 @@ Ajax.Responders.register({
 
   onException: function(request, exception) {
     Mojo.Log.info("ajax exception -", exception.message);
-    Mojo.Log.info(Object.toJSON(exception))
   }
 });
 

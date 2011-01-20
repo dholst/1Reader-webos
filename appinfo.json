@@ -1,10 +1,10 @@
 {
-	"id": "com.semicolonapps.1reader.pro.beta",
-	"version": "0.3.6",
+	"id": "com.semicolonapps.1reader.pro",
+	"version": "0.3.5",
 	"vendor": "SemicolonApps",
 	"type": "web",
 	"main": "index.html",
-	"title": "1Reader Pro (BETA)",
+	"title": "1Reader Pro",
 	"icon": "1reader_64.png",
 	"splashicon": "1reader_250.png"
 }

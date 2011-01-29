@@ -55,14 +55,14 @@ namespace :jasmine do
   end
 
   desc "Run continuous integration tests"
-  require "spec"
-  require 'spec/rake/spectask'
+  #require "spec"
+  #require 'spec/rake/spectask'
 
-  Spec::Rake::SpecTask.new(:ci) do |t|
-    t.spec_opts = ["--color", "--format", "specdoc"]
-    t.verbose = true
-    t.spec_files = ['spec/support/jasmine_runner.rb']
-  end
+  #Spec::Rake::SpecTask.new(:ci) do |t|
+    #t.spec_opts = ["--color", "--format", "specdoc"]
+    #t.verbose = true
+    #t.spec_files = ['spec/support/jasmine_runner.rb']
+  #end
 
   task :server do
     require 'spec/support/jasmine_config'
